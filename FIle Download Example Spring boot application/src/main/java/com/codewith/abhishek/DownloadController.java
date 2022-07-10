@@ -24,7 +24,8 @@ public class DownloadController {
 
     @RequestMapping(value = "/don", method = RequestMethod.GET)
     ResponseEntity<InputStreamResource> download(HttpServletResponse httpServletResponse) throws IOException {
-        httpServletResponse.setContentType("application/pdf");
+        //httpServletResponse.setContentType("application/pdf");
+        httpServletResponse.setContentType(MediaType.parseMediaType("application/pdf"));
         httpServletResponse.setHeader("Content-Disposition", "inline; filename=\"codewithabhishek.pdf\"");
         InputStream is = new ClassPathResource("static/image/codewithabhishek.pdf").getInputStream();
         InputStreamResource inputStream = new InputStreamResource(is);
