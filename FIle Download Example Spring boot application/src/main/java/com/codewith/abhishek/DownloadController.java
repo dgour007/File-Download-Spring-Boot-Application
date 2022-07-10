@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.http.MediaType;
+import org.springframework.http.HttpHeaders;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -26,11 +27,20 @@ public class DownloadController {
     @RequestMapping(value = "/don", method = RequestMethod.GET)
     ResponseEntity<InputStreamResource> download(HttpServletResponse httpServletResponse) throws IOException {
         //httpServletResponse.setContentType("application/pdf");
-        httpServletResponse.setContentType(MediaType.parseMediaType("application/pdf"));
-        httpServletResponse.setHeader("Content-Disposition", "inline; filename=\"codewithabhishek.pdf\"");
+        //httpServletResponse.setContentType(MediaType.parseMediaType("application/pdf"));
+        //httpServletResponse.setHeader("Content-Disposition", "inline; filename=\"codewithabhishek.pdf\"");
+        
+        HttpHeaders headers = new HttpHeaders();      
+        headers.add("content-disposition", "inline; filename=\"codewithabhishek.pdf\"");
+        
         InputStream is = new ClassPathResource("static/image/codewithabhishek.pdf").getInputStream();
         InputStreamResource inputStream = new InputStreamResource(is);
-        return ResponseEntity.ok(inputStream);
+        
+        //return ResponseEntity.ok(inputStream);
+        return ResponseEntity.ok()
+            .headers(headers)
+            .contentType(MediaType.parseMediaType("application/pdf"))
+            .body(resource);
     }
 
 
