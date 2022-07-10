@@ -40,7 +40,7 @@ public class DownloadController {
         return ResponseEntity.ok()
             .headers(headers)
             .contentType(MediaType.parseMediaType("application/pdf"))
-            .body(resource);
+            .body(inputStream);
     }
 
 
